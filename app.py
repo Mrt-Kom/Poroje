@@ -1,7 +1,7 @@
 from flask import Flask, render_template, request
 
 app = Flask(__name__)
-developer_name = "E2426 - Mustafa"
+developer_name = "E2127 - Murat"
 def millisecond_converter(millisec):
     value = int(millisec)
     if value < 1000:
@@ -15,14 +15,18 @@ def millisecond_converter(millisec):
             #print(second)
         if hour and minute and second:
             return f"{hour} hour/s {minute} minute/s {second} second/s"
+        elif hour and minute:
+            return f"{hour} hour/s {minute} minute/s"        
+        elif hour and second:
+            return f"{hour} hour/s {second} second/s"
+        elif minute and second:
+            return f"{minute} minute/s {second} second/s"        
         elif hour:
             return f"{hour} hour/s"
-        elif minute and second:
-            return f"{minute} minute/s {second} second/s"
         elif minute:
             return f"{minute} minute/s"
         elif second:
-            return f"{second} second/s" 
+            return f"{second} second/s"
 
 @app.route("/", methods=["GET"])
 def main_get():
@@ -40,7 +44,6 @@ def main_post():
     
     return render_template("result.html", developer_name= developer_name, milliseconds=second, result=millisecond_converter(second))
 
-#    app.run(host='0.0.0.0', port=80)
 if __name__ == "__main__":
-    app.run(debug = True)
-    #app.run(host="0.0.0.0", port=80)
+    #app.run(debug = True)
+    app.run(host="0.0.0.0", port=80)

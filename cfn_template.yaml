@@ -25,8 +25,8 @@ Parameters:
     Description: The EC2 Key Pair allow SSH access to the instance  
     Type: AWS::EC2::KeyPair::KeyName
   Subnets:
-    Description: The Subnet Id in our VPC  
-    Type: AWS::EC2::Subnet::Id
+    Type: 'List<AWS::EC2::Subnet::Id>'
+    Description: Select a VPC subnet
 
 Mappings:
   RegionImageMap:
@@ -49,7 +49,7 @@ Resources:
       DesiredCapacity: 1
       HealthCheckGracePeriod: 300
       HealthCheckType: ELB 
-      LaunchConfigurationName: myLaunchConfiguration
+      LaunchConfigurationName: !Ref myLaunchConfiguration
       MaxSize: "3" #required
       MinSize: "1" #required
       TargetGroupARNs:
@@ -111,8 +111,6 @@ Resources:
     Type: "AWS::ElasticLoadBalancingV2::TargetGroup"
     Properties:
       HealthCheckIntervalSeconds: 30
-      HealthCheckPort: HTTP 
-      HealthCheckProtocol: TCP 
       HealthyThresholdCount: 5
       Port: 80
       Protocol: HTTP 
